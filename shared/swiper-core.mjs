@@ -2889,7 +2889,9 @@ function setBreakpoint() {
   let breakpoints = params.breakpoints;
 
   // If breakponits serialized object parse it
-  if (breakpoints === '[object Object]') breakpoints = JSON.parse(breakpoints);
+  try {
+    if (typeof breakpoints === 'string') breakpoints = JSON.parse(breakpoints);
+  } catch (e) {}
   if (!breakpoints || breakpoints && Object.keys(breakpoints).length === 0) return;
 
   // Get breakpoint for window width and update parameters
